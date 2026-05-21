@@ -1,0 +1,926 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Services — Tsuri Financial Services</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Raleway:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root { --navy:#1b2d45;--navy-deep:#0f1d2e;--navy-mid:#243650;--gold:#c9a84c;--gold-light:#e8c97a;--cream:#f7f4ef;--cream-dark:#ede9e1;--white:#ffffff;--text-dark:#1b2d45;--text-mid:#4a5568; }
+  *{margin:0;padding:0;box-sizing:border-box;}html{scroll-behavior:smooth;}
+  body{font-family:'Raleway',sans-serif;background:var(--cream);color:var(--text-dark);overflow-x:hidden;}
+  nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:20px 60px;background:rgba(27,45,69,0.97);backdrop-filter:blur(8px);border-bottom:1px solid rgba(201,168,76,0.2);}
+  .nav-logo{display:flex;align-items:center;text-decoration:none;}
+  .nav-brand{display:flex;flex-direction:column;line-height:1;}
+  .nav-brand-name{font-family:'Cormorant Garamond',serif;font-size:1.3rem;font-weight:600;letter-spacing:0.2em;color:var(--white);text-transform:uppercase;}
+  .nav-brand-sub{font-size:0.6rem;letter-spacing:0.25em;color:var(--gold);text-transform:uppercase;margin-top:3px;}
+  .nav-links{display:flex;gap:40px;list-style:none;}
+  .nav-links a{font-size:0.7rem;letter-spacing:0.18em;text-transform:uppercase;color:rgba(255,255,255,0.75);text-decoration:none;transition:color 0.3s;}
+  .nav-links a:hover,.nav-links a.active{color:var(--gold);}
+  .nav-cta{background:transparent;border:1px solid var(--gold);color:var(--gold)!important;padding:8px 22px;font-size:0.65rem!important;letter-spacing:0.18em;text-transform:uppercase;cursor:pointer;transition:all 0.3s!important;text-decoration:none;font-family:'Raleway',sans-serif;}
+  .nav-cta:hover{background:var(--gold)!important;color:var(--navy-deep)!important;}
+  .page-hero{padding:150px 60px 80px;background:var(--navy-deep);position:relative;overflow:hidden;text-align:center;}
+  .page-hero::after{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;background:linear-gradient(to right,transparent,var(--gold),transparent);}
+  .page-hero-label{font-size:0.62rem;letter-spacing:0.35em;text-transform:uppercase;color:var(--gold);margin-bottom:20px;display:block;}
+  .page-hero-title{font-family:'Cormorant Garamond',serif;font-size:clamp(2.6rem,5vw,4rem);font-weight:300;color:var(--white);line-height:1.1;margin-bottom:20px;}
+  .page-hero-title em{font-style:italic;color:var(--gold-light);}
+  .page-hero-sub{font-size:0.84rem;color:rgba(255,255,255,0.5);font-weight:300;line-height:1.9;max-width:560px;margin:0 auto;}
+  .tabs-bar{background:var(--navy);border-bottom:1px solid rgba(201,168,76,0.15);position:sticky;top:72px;z-index:50;}
+  .tabs-inner{max-width:1200px;margin:0 auto;display:flex;overflow-x:auto;scrollbar-width:none;}
+  .tabs-inner::-webkit-scrollbar{display:none;}
+  .tab-btn{padding:18px 30px;font-size:0.65rem;letter-spacing:0.2em;text-transform:uppercase;color:rgba(255,255,255,0.5);background:none;border:none;border-bottom:2px solid transparent;cursor:pointer;white-space:nowrap;transition:all 0.3s;font-family:'Raleway',sans-serif;}
+  .tab-btn:hover{color:rgba(255,255,255,0.85);}
+  .tab-btn.active{color:var(--gold);border-bottom-color:var(--gold);}
+  .category{padding:80px 60px;}
+  .category.alt{background:var(--cream-dark);}
+  .category-inner{max-width:1100px;margin:0 auto;}
+  .category-header{margin-bottom:56px;padding-bottom:32px;border-bottom:1px solid rgba(27,45,69,0.12);display:flex;gap:32px;align-items:start;}
+  .cat-number{font-family:'Cormorant Garamond',serif;font-size:5rem;font-weight:300;color:var(--gold);opacity:0.18;line-height:1;margin-top:-10px;min-width:80px;}
+  .cat-label{font-size:0.6rem;letter-spacing:0.3em;text-transform:uppercase;color:var(--gold);margin-bottom:10px;display:block;}
+  .cat-title{font-family:'Cormorant Garamond',serif;font-size:clamp(1.8rem,3vw,2.5rem);font-weight:400;color:var(--navy-deep);line-height:1.2;margin-bottom:12px;}
+  .cat-desc{font-size:0.84rem;color:var(--text-mid);font-weight:300;line-height:1.85;max-width:620px;}
+  .accordion{display:flex;flex-direction:column;gap:2px;}
+  .accordion-item{background:var(--white);border:1px solid rgba(27,45,69,0.07);overflow:hidden;}
+  .category.alt .accordion-item{background:var(--cream);}
+  .accordion-trigger{width:100%;padding:28px 36px;display:flex;align-items:center;justify-content:space-between;gap:20px;background:none;border:none;cursor:pointer;text-align:left;border-left:3px solid transparent;transition:all 0.25s;}
+  .accordion-trigger:hover{background:rgba(201,168,76,0.04);border-left-color:rgba(201,168,76,0.4);}
+  .accordion-trigger.open{border-left-color:var(--gold);background:rgba(201,168,76,0.05);}
+  .trigger-left{display:flex;align-items:center;gap:20px;}
+  .trigger-icon{width:28px;height:28px;color:var(--gold);opacity:0.7;min-width:28px;}
+  .trigger-title{font-family:'Cormorant Garamond',serif;font-size:1.25rem;font-weight:600;color:var(--navy-deep);}
+  .trigger-sub{font-size:0.65rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--text-mid);margin-top:3px;}
+  .trigger-arrow{width:20px;height:20px;color:var(--gold);transition:transform 0.3s;min-width:20px;}
+  .accordion-trigger.open .trigger-arrow{transform:rotate(180deg);}
+  .accordion-content{max-height:0;overflow:hidden;transition:max-height 0.5s ease;}
+  .accordion-content.open{max-height:4000px;}
+  .accordion-body{padding:0 36px 40px 84px;}
+  .service-intro{font-size:0.9rem;line-height:1.9;color:var(--text-mid);font-weight:300;margin-bottom:32px;padding-bottom:28px;border-bottom:1px solid rgba(27,45,69,0.08);}
+  .detail-grid{display:grid;grid-template-columns:1fr 1fr;gap:40px;margin-bottom:32px;}
+  .detail-block h4{font-family:'Cormorant Garamond',serif;font-size:1.1rem;font-weight:600;color:var(--navy);margin-bottom:14px;padding-bottom:8px;border-bottom:1px solid rgba(201,168,76,0.3);}
+  .detail-block p{font-size:0.82rem;color:var(--text-mid);line-height:1.85;font-weight:300;margin-bottom:10px;}
+  .detail-block ul{list-style:none;display:flex;flex-direction:column;gap:8px;}
+  .detail-block ul li{font-size:0.82rem;color:var(--text-mid);line-height:1.7;font-weight:300;padding-left:16px;position:relative;}
+  .detail-block ul li::before{content:'';position:absolute;left:0;top:9px;width:5px;height:5px;border-radius:50%;background:var(--gold);}
+  .detail-block ul li strong{color:var(--navy);font-weight:500;}
+  .how-table{width:100%;border-collapse:collapse;margin-top:10px;}
+  .how-table th{font-size:0.62rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--gold);text-align:left;padding:10px 14px;background:rgba(201,168,76,0.06);border-bottom:1px solid rgba(201,168,76,0.2);}
+  .how-table td{font-size:0.8rem;color:var(--text-mid);padding:12px 14px;border-bottom:1px solid rgba(27,45,69,0.06);font-weight:300;line-height:1.6;vertical-align:top;}
+  .how-table tr:last-child td{border-bottom:none;}
+  .stat-strip{display:flex;gap:2px;margin-top:28px;}
+  .stat-box{flex:1;background:var(--navy);padding:22px 20px;text-align:center;}
+  .stat-value{font-family:'Cormorant Garamond',serif;font-size:1.8rem;font-weight:600;color:var(--gold);line-height:1;margin-bottom:6px;}
+  .stat-label{font-size:0.6rem;letter-spacing:0.15em;text-transform:uppercase;color:rgba(255,255,255,0.45);line-height:1.5;}
+  .callout{background:rgba(201,168,76,0.08);border-left:3px solid var(--gold);padding:18px 22px;margin-top:24px;}
+  .callout p{font-size:0.8rem;color:var(--navy);line-height:1.75;font-weight:400;}
+  .callout p strong{font-weight:600;}
+  .claims-section{background:var(--navy-deep);padding:90px 60px;}
+  .claims-inner{max-width:1100px;margin:0 auto;}
+  .claims-tag{display:inline-block;font-size:0.58rem;letter-spacing:0.25em;text-transform:uppercase;color:var(--navy-deep);background:var(--gold);padding:5px 14px;margin-bottom:22px;}
+  .claims-title{font-family:'Cormorant Garamond',serif;font-size:clamp(2rem,3.5vw,3rem);font-weight:300;color:var(--white);line-height:1.15;margin-bottom:16px;}
+  .claims-title em{font-style:italic;color:var(--gold-light);}
+  .claims-intro{font-size:0.86rem;color:rgba(255,255,255,0.55);font-weight:300;line-height:1.9;max-width:700px;margin-bottom:50px;}
+  .claims-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:2px;}
+  .claims-card{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.07);padding:32px 30px;}
+  .claims-card-num{font-family:'Cormorant Garamond',serif;font-size:2.5rem;font-weight:300;color:var(--gold);opacity:0.3;line-height:1;margin-bottom:12px;}
+  .claims-card-title{font-family:'Cormorant Garamond',serif;font-size:1.1rem;font-weight:600;color:var(--white);margin-bottom:10px;}
+  .claims-card-desc{font-size:0.78rem;color:rgba(255,255,255,0.45);line-height:1.8;font-weight:300;}
+  .cta{background:var(--navy);padding:90px 60px;text-align:center;position:relative;overflow:hidden;}
+  .cta::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 70% 80% at 50% 100%,rgba(201,168,76,0.07) 0%,transparent 70%);}
+  .cta-inner{position:relative;z-index:2;max-width:560px;margin:0 auto;}
+  .cta-heading{font-family:'Cormorant Garamond',serif;font-size:clamp(2rem,3.5vw,2.8rem);font-weight:300;color:var(--white);line-height:1.2;margin-bottom:16px;}
+  .cta-text{font-size:0.82rem;color:rgba(255,255,255,0.5);font-weight:300;line-height:1.8;margin-bottom:38px;}
+  .cta-actions{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;}
+  .btn-primary{background:var(--gold);color:var(--navy-deep);padding:14px 36px;font-size:0.7rem;letter-spacing:0.2em;text-transform:uppercase;text-decoration:none;font-family:'Raleway',sans-serif;font-weight:600;transition:all 0.3s;display:inline-block;}
+  .btn-primary:hover{background:var(--gold-light);transform:translateY(-2px);}
+  .btn-secondary{background:transparent;color:rgba(255,255,255,0.7);padding:14px 36px;font-size:0.7rem;letter-spacing:0.2em;text-transform:uppercase;text-decoration:none;font-family:'Raleway',sans-serif;font-weight:400;border:1px solid rgba(255,255,255,0.25);transition:all 0.3s;display:inline-block;}
+  .btn-secondary:hover{border-color:var(--gold);color:var(--gold);}
+  footer{background:var(--navy-deep);padding:50px 60px;border-top:1px solid rgba(201,168,76,0.15);}
+  .footer-inner{max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:30px;}
+  .footer-brand-text .name{font-family:'Cormorant Garamond',serif;font-size:1rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--white);font-weight:600;}
+  .footer-brand-text .sub{font-size:0.58rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--gold);margin-top:2px;}
+  .footer-contact a{display:block;font-size:0.72rem;color:rgba(255,255,255,0.5);text-decoration:none;letter-spacing:0.05em;transition:color 0.3s;line-height:2;text-align:center;}
+  .footer-contact a:hover{color:var(--gold);}
+  .footer-tagline{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:0.95rem;color:rgba(255,255,255,0.3);}
+  .footer-copy{width:100%;text-align:center;font-size:0.6rem;color:rgba(255,255,255,0.2);letter-spacing:0.1em;text-transform:uppercase;margin-top:30px;padding-top:30px;border-top:1px solid rgba(255,255,255,0.05);}
+  .mb24{margin-bottom:24px;}
+  @media(max-width:960px){nav{padding:18px 24px;}.nav-links{display:none;}.page-hero{padding:120px 24px 60px;}.tabs-bar{top:62px;}.category{padding:60px 24px;}.category-header{flex-direction:column;gap:8px;}.cat-number{display:none;}.accordion-body{padding:0 20px 30px 20px;}.detail-grid{grid-template-columns:1fr;gap:24px;}.stat-strip{flex-direction:column;}.claims-section{padding:70px 24px;}.claims-grid{grid-template-columns:1fr;}.cta{padding:70px 24px;}footer{padding:40px 24px;}.footer-inner{flex-direction:column;align-items:flex-start;}.footer-contact a{text-align:left;}}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="index.html" class="nav-logo">
+    <div class="nav-brand">
+      <span class="nav-brand-name">Tsuri</span>
+      <span class="nav-brand-sub">Financial Services</span>
+    </div>
+  </a>
+  <ul class="nav-links">
+    <li><a href="about.html">About</a></li>
+    <li><a href="services.html" class="active">Services</a></li>
+    <li><a href="enquire.html">Claims</a></li>
+    <li><a href="enquire.html" class="nav-cta">Get in Touch</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="page-hero">
+  <span class="page-hero-label">What I Offer</span>
+  <h1 class="page-hero-title">Coverage built around <em>your life,</em><br>not a generic policy.</h1>
+  <p class="page-hero-sub">Whether you are protecting your family, your income, your health, or your business, every recommendation I make is shaped by 15 years of understanding exactly how these policies work when it matters most.</p>
+</section>
+
+<!-- TABS -->
+<div class="tabs-bar">
+  <div class="tabs-inner">
+    <button class="tab-btn active" onclick="jumpTo('personal',this)">Personal Insurance</button>
+    <button class="tab-btn" onclick="jumpTo('medical',this)">Medical Insurance</button>
+    <button class="tab-btn" onclick="jumpTo('business',this)">Business Insurance</button>
+    <button class="tab-btn" onclick="jumpTo('trade',this)">Trade &amp; ACC</button>
+    <button class="tab-btn" onclick="jumpTo('claims-review',this)">Claims Review</button>
+  </div>
+</div>
+
+<!-- PERSONAL -->
+<section class="category" id="personal">
+  <div class="category-inner">
+    <div class="category-header">
+      <span class="cat-number">01</span>
+      <div>
+        <span class="cat-label">Personal Insurance</span>
+        <h2 class="cat-title">Protecting you and the people who depend on you.</h2>
+        <p class="cat-desc">Life does not come with a warning. Personal insurance ensures that if something unexpected happens to you, your family's future stays intact. I help you find the right cover for your stage of life, whether you have just bought your first home, started a family, or simply want peace of mind knowing you are protected.</p>
+      </div>
+    </div>
+    <div class="accordion">
+
+      <!-- Life -->
+      <div class="accordion-item">
+        <button class="accordion-trigger" onclick="toggle(this)">
+          <div class="trigger-left">
+            <svg class="trigger-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2L3 7v5c0 5.25 3.75 10.15 9 11.25C17.25 22.15 21 17.25 21 12V7l-9-5z"/></svg>
+            <div><div class="trigger-title">Life &amp; Terminal Illness Protection</div><div class="trigger-sub">Lump sum payment &middot; Tax-free &middot; Worldwide cover</div></div>
+          </div>
+          <svg class="trigger-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="accordion-content">
+          <div class="accordion-body">
+            <p class="service-intro">Life insurance is designed to provide a financial safety net for your loved ones if the worst should happen. If you pass away while the policy is active, your chosen beneficiaries receive a tax-free lump sum, ensuring they are not forced to make difficult financial decisions during an already emotional time.</p>
+            <div class="detail-grid">
+              <div class="detail-block">
+                <h4>1. Financial Security for Your Family</h4>
+                <p>The primary benefit is the lump-sum death benefit paid directly to your nominated beneficiaries. This ensures the people you love have the financial breathing room they need without making urgent decisions under pressure.</p>
+              </div>
+              <div class="detail-block">
+                <h4>2. Debt &amp; Mortgage Protection</h4>
+                <ul>
+                  <li><strong>Clear the mortgage:</strong> Ensure your family can stay in their home without the burden of monthly repayments</li>
+                  <li><strong>Settle debts:</strong> Pay off personal loans, credit cards, or car finance so your estate remains intact</li>
+                  <li><strong>Business obligations:</strong> Protect your business from debt exposure triggered by your passing</li>
+                </ul>
+              </div>
+              <div class="detail-block">
+                <h4>3. Income Replacement</h4>
+                <p>If your family relies on your income, Life Insurance acts as a backup. It can cover:</p>
+                <ul>
+                  <li>Day-to-day living expenses including groceries, utilities, and transport</li>
+                  <li>Future education costs and university fees for children</li>
+                  <li>Childcare or ongoing household support</li>
+                </ul>
+              </div>
+              <div class="detail-block">
+                <h4>4. Terminal Illness Benefit</h4>
+                <p>Most modern policies include a Terminal Illness Benefit. If you are diagnosed with a terminal condition (typically 12 months or less life expectancy), your sum insured is paid out early so you can:</p>
+                <ul>
+                  <li>Focus on your health and family without financial pressure</li>
+                  <li>Cover specialist medical costs or palliative care</li>
+                  <li>Arrange your affairs and make memories with loved ones</li>
+                </ul>
+              </div>
+              <div class="detail-block">
+                <h4>5. Funeral &amp; Bereavement Cover</h4>
+                <p>Many policies offer an advance payout (typically $15,000 to $20,000) within 24 to 48 hours of a claim to help cover funeral costs, legal fees, and immediate travel for family members.</p>
+              </div>
+              <div class="detail-block">
+                <h4>6. Why Act Now?</h4>
+                <ul>
+                  <li><strong>Locked-in rates:</strong> Premiums are lower and easier to secure when you are younger and healthy</li>
+                  <li><strong>Guaranteed insurability:</strong> Waiting can mean exclusions or declined applications due to health changes</li>
+                  <li><strong>Complete peace of mind:</strong> Knowing your family is protected allows you to live more fully today</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Trauma -->
+      <div class="accordion-item">
+        <button class="accordion-trigger" onclick="toggle(this)">
+          <div class="trigger-left">
+            <svg class="trigger-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+            <div><div class="trigger-title">Trauma &amp; Critical Illness Cover</div><div class="trigger-sub">Tax-free lump sum &middot; 40+ conditions &middot; Worldwide</div></div>
+          </div>
+          <svg class="trigger-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="accordion-content">
+          <div class="accordion-body">
+            <p class="service-intro">Trauma insurance pays you a tax-free lump sum if you are diagnosed with a specific, life-altering medical condition. Unlike Health Insurance which covers medical bills, this payout is yours to use however you need. The goal is simple: give you financial breathing room so you can focus on recovery, not finances.</p>
+            <div class="detail-grid">
+              <div class="detail-block">
+                <h4>What Is Typically Covered</h4>
+                <p>Most policies cover 40 or more major medical conditions, including:</p>
+                <ul>
+                  <li>Cancer (including early-stage cancer benefit)</li>
+                  <li>Heart attack and coronary artery surgery</li>
+                  <li>Stroke</li>
+                  <li>Major organ transplant</li>
+                  <li>Multiple sclerosis and neurological conditions</li>
+                  <li>Alzheimer's disease and dementia</li>
+                  <li>Loss of limbs, sight, or speech</li>
+                  <li>Intensive care confinement</li>
+                </ul>
+              </div>
+              <div class="detail-block">
+                <h4>Why Choose Trauma Cover?</h4>
+                <ul>
+                  <li><strong>Complete flexibility:</strong> Use the funds for your mortgage, private treatment, rehabilitation, or supporting your family</li>
+                  <li><strong>Bridge the income gap:</strong> If you or your partner needs extended time off work, the lump sum maintains your lifestyle</li>
+                  <li><strong>Access to better care:</strong> Fund private treatment, home modifications, or therapies not publicly funded</li>
+                  <li><strong>Worldwide cover:</strong> Whether at home, travelling, or overseas, your cover remains active</li>
+                </ul>
+              </div>
+            </div>
+            <div class="detail-block mb24">
+              <h4>Optional Benefits Available</h4>
+              <ul>
+                <li><strong>Early Cancer Upgrade:</strong> Covers several minor, treatable cancer conditions at early diagnosis, paying a partial benefit before the condition progresses</li>
+                <li><strong>Trauma Buy-Back:</strong> Reinstates your level of cover after a claim without requiring further medical information</li>
+                <li><strong>Total Permanent Disablement condition:</strong> An additional claimable condition covering permanent disability due to accident or illness</li>
+              </ul>
+            </div>
+            <div class="stat-strip">
+              <div class="stat-box"><div class="stat-value">85%</div><div class="stat-label">Of female critical illness claims in NZ are for cancer</div></div>
+              <div class="stat-box"><div class="stat-value">45%</div><div class="stat-label">Of male critical illness claims in NZ are cancer-related</div></div>
+              <div class="stat-box"><div class="stat-value">1 in 5</div><div class="stat-label">Men aged 30 to 65 will suffer a critical illness</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Income Protection -->
+      <div class="accordion-item">
+        <button class="accordion-trigger" onclick="toggle(this)">
+          <div class="trigger-left">
+            <svg class="trigger-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+            <div><div class="trigger-title">Income Protection</div><div class="trigger-sub">Monthly payments &middot; Up to 75% of income &middot; Illness &amp; injury</div></div>
+          </div>
+          <svg class="trigger-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="accordion-content">
+          <div class="accordion-body">
+            <p class="service-intro">Your ability to earn is your most valuable asset. If illness or injury prevents you from working, Income Protection provides regular monthly payments replacing a portion of your income so you can meet your financial commitments and protect your lifestyle while you recover.</p>
+            <div class="detail-grid">
+              <div class="detail-block">
+                <h4>Three Cover Options</h4>
+                <ul>
+                  <li><strong>Agreed Value Cover:</strong> Benefit payments are based on an amount agreed when the policy is taken out. Maximum 62.5% of your taxable income. Provides certainty.</li>
+                  <li><strong>Indemnity Cover:</strong> Benefit based on your income at the time of claim. Maximum 75% of your taxable income.</li>
+                  <li><strong>Loss of Earnings Cover:</strong> Calculated as either agreed value or indemnity, whichever is higher. Ideal if your income fluctuates.</li>
+                </ul>
+              </div>
+              <div class="detail-block">
+                <h4>Key Benefits</h4>
+                <ul>
+                  <li><strong>Maintain your lifestyle:</strong> Keep up with rent, school fees, and groceries without drawing on long-term savings</li>
+                  <li><strong>Rehabilitation support:</strong> Many policies include Return to Work benefits, funding retraining or equipment to assist recovery</li>
+                  <li><strong>Partial disability:</strong> If you return to work part-time, the policy can top up your reduced earnings</li>
+                  <li><strong>24/7 coverage:</strong> Unlike ACC, Income Protection covers illness and injury anywhere, anytime</li>
+                </ul>
+              </div>
+            </div>
+            <div class="detail-block mb24">
+              <h4>How It Works</h4>
+              <table class="how-table">
+                <tr><th>Feature</th><th>What It Means for You</th></tr>
+                <tr><td><strong>Wait Period</strong></td><td>The period (e.g., 30, 60, or 90 days) you must be off work before payments begin. A longer wait period reduces your premium cost.</td></tr>
+                <tr><td><strong>Benefit Period</strong></td><td>How long payments continue. Options include 2 years, 5 years, or until age 65 or 70.</td></tr>
+                <tr><td><strong>Partial Disability</strong></td><td>If you can only return to work part-time, the policy tops up your reduced earnings proportionately.</td></tr>
+                <tr><td><strong>Offset Provisions</strong></td><td>Your benefit is reduced by any other income replacement you receive, such as sick leave or ACC payments.</td></tr>
+              </table>
+            </div>
+            <div class="callout"><p><strong>Important:</strong> ACC only covers accidents. Income Protection covers both accidents and illnesses, including cancer, heart conditions, and mental health conditions, wherever and whenever they occur.</p></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Mortgage -->
+      <div class="accordion-item">
+        <button class="accordion-trigger" onclick="toggle(this)">
+          <div class="trigger-left">
+            <svg class="trigger-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+            <div><div class="trigger-title">Mortgage &amp; Rent Protection</div><div class="trigger-sub">Monthly benefit &middot; Keeps your home secure &middot; Illness &amp; injury</div></div>
+          </div>
+          <svg class="trigger-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="accordion-content">
+          <div class="accordion-body">
+            <p class="service-intro">Mortgage and Rent Protection provides a monthly payment to help replace lost income or cover essential housing costs if illness or injury prevents you from working. It is designed to keep a roof over your family's head no matter what happens.</p>
+            <div class="detail-grid">
+              <div class="detail-block">
+                <h4>What It Covers</h4>
+                <ul>
+                  <li>Monthly mortgage repayments while you are unable to work</li>
+                  <li>Rental payments for those who rent rather than own</li>
+                  <li>General living expenses to supplement lost income</li>
+                  <li>Cover for both illness and accident, not just ACC-eligible events</li>
+                </ul>
+              </div>
+              <div class="detail-block">
+                <h4>Why It Matters</h4>
+                <ul>
+                  <li>Your home is often your most important asset. This cover ensures you never have to choose between your health and keeping it</li>
+                  <li>Bridges the gap between your sick leave running out and your ability to return to work</li>
+                  <li>Often combined with Income Protection for comprehensive cover</li>
+                  <li>Works alongside ACC payments, with benefit adjusted accordingly</li>
+                </ul>
+              </div>
+            </div>
+            <div class="callout"><p><strong>Note:</strong> Redundancy Cover can only be chosen in combination with Income Cover or Mortgage Repayment Cover, providing a monthly payment for up to 6 months if you are made involuntarily redundant.</p></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Disability -->
+      <div class="accordion-item">
+        <button class="accordion-trigger" onclick="toggle(this)">
+          <div class="trigger-left">
+            <svg class="trigger-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+            <div><div class="trigger-title">Disability Benefit</div><div class="trigger-sub">One-time lump sum &middot; Total &amp; permanent disablement (TPD)</div></div>
+          </div>
+          <svg class="trigger-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="accordion-content">
+          <div class="accordion-body">
+            <p class="service-intro">Total and Permanent Disablement (TPD) insurance provides a one-time lump sum payment if you become so disabled through illness or injury that you are unlikely to ever work again. It is a financial safety net designed to help you navigate a new way of living.</p>
+            <div class="detail-grid">
+              <div class="detail-block">
+                <h4>What the Lump Sum Can Cover</h4>
+                <ul>
+                  <li>Paying off your mortgage so you own your home outright</li>
+                  <li>Ongoing medical and rehabilitation costs</li>
+                  <li>Home modifications to accommodate your disability</li>
+                  <li>Long-term care and support costs</li>
+                  <li>Providing for your family's future financial security</li>
+                  <li>Repaying any outstanding debts or loans</li>
+                </ul>
+              </div>
+              <div class="detail-block">
+                <h4>How It Differs from Income Protection</h4>
+                <ul>
+                  <li><strong>Income Protection</strong> pays monthly while you recover. It is designed for a temporary inability to work</li>
+                  <li><strong>Disability Benefit (TPD)</strong> pays a one-off lump sum for permanent, total disablement when you will not return to work</li>
+                  <li>Both can be held simultaneously for comprehensive layered protection</li>
+                  <li>TPD can be structured as standalone cover or as an add-on to Life Insurance</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Redundancy -->
+      <div class="accordion-item">
+        <button class="accordion-trigger" onclick="toggle(this)">
+          <div class="trigger-left">
+            <svg class="trigger-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg>
+            <div><div class="trigger-title">Redundancy Insurance</div><div class="trigger-sub">Monthly payment &middot; Up to 6 months &middot; Involuntary redundancy only</div></div>
+          </div>
+          <svg class="trigger-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="accordion-content">
+          <div class="accordion-body">
+            <p class="service-intro">Redundancy Insurance pays a monthly amount for up to 6 months if you are made involuntarily redundant. It gives you a financial back-up plan so you can focus on your next career step without scrambling to cover living expenses.</p>
+            <div class="detail-grid">
+              <div class="detail-block">
+                <h4>Key Details</h4>
+                <ul>
+                  <li>Covers involuntary redundancy only, not voluntary resignation</li>
+                  <li>Monthly payments for up to 6 months</li>
+                  <li>Can cover mortgage repayments, bills, and everyday living costs</li>
+                  <li>Must be selected alongside Income Cover or Mortgage Repayment Cover</li>
+                  <li>Provides breathing room to find the right next role without financial pressure</li>
+                </ul>
+              </div>
+              <div class="detail-block">
+                <h4>Who Should Consider This?</h4>
+                <ul>
+                  <li>Anyone with a mortgage or significant fixed financial commitments</li>
+                  <li>Those in industries or roles where restructuring is possible</li>
+                  <li>Single-income households where one redundancy has an immediate financial impact</li>
+                  <li>Those who want a comprehensive protection package rather than single-risk cover</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- MEDICAL -->
+<section class="category alt" id="medical">
+  <div class="category-inner">
+    <div class="category-header">
+      <span class="cat-number">02</span>
+      <div>
+        <span class="cat-label">Medical Insurance</span>
+        <h2 class="cat-title">Access the treatment you need, without the wait or the worry.</h2>
+        <p class="cat-desc">New Zealand's public health system is under significant pressure. Medical Insurance gives you access to private specialists, diagnostics, and treatment when you need it, not when the public waitlist allows. I help you choose cover that genuinely matches your health profile and budget.</p>
+      </div>
+    </div>
+    <div class="accordion">
+
+      <div class="accordion-item">
+        <button class="accordion-trigger" onclick="toggle(this)">
+          <div class="trigger-left">
+            <svg class="trigger-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+            <div><div class="trigger-title">Cancer Care Benefit</div><div class="trigger-sub">Full treatment cover &middot; Surgery, chemo, radiation &middot; Specialist access</div></div>
+          </div>
+          <svg class="trigger-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="accordion-content">
+          <div class="accordion-body">
+            <p class="service-intro">Cancer Care Benefit provides comprehensive cover for cancer treatment costs, giving you access to the best available care without the financial stress of navigating private treatment costs on top of a diagnosis.</p>
+            <div class="detail-grid">
+              <div class="detail-block">
+                <h4>What Is Covered</h4>
+                <ul>
+                  <li>Surgery related to cancer diagnosis and treatment</li>
+                  <li>Chemotherapy and radiation therapy</li>
+                  <li>Specialist and oncologist consultations</li>
+                  <li>Hormone therapy and targeted drug treatments</li>
+                  <li>Early-stage cancer diagnosis benefit</li>
+                  <li>Hospital accommodation during treatment</li>
+                  <li>Medicines not funded by Pharmac</li>
+                </ul>
+              </div>
+              <div class="detail-block">
+                <h4>Why It Matters</h4>
+                <ul>
+                  <li>Cancer is the leading cause of critical illness claims for women in New Zealand</li>
+                  <li>Private cancer treatment can cost tens of thousands of dollars. Cancer Care removes that barrier</li>
+                  <li>Faster access to diagnosis and treatment. Time is critical with cancer</li>
+                  <li>Access to treatments and medications not always funded through the public system</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="accordion-item">
+        <button class="accordion-trigger" onclick="toggle(this)">
+          <div class="trigger-left">
+            <svg class="trigger-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            <div><div class="trigger-title">Specialist &amp; Diagnostic Cover</div><div class="trigger-sub">Private specialists &middot; MRI &middot; CT scans &middot; No waitlist</div></div>
+          </div>
+          <svg class="trigger-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="accordion-content">
+          <div class="accordion-body">
+            <p class="service-intro">Specialist and Diagnostic Cover removes the waiting time and cost barriers to getting answers. Rather than waiting months for a public referral, this cover allows you to see a private specialist and get diagnostic tests done when you need them.</p>
+            <div class="detail-grid">
+              <div class="detail-block">
+                <h4>What Is Covered</h4>
+                <ul>
+                  <li>Private specialist consultations</li>
+                  <li>MRI and CT scans</li>
+                  <li>X-rays and ultrasounds</li>
+                  <li>Pathology and blood work</li>
+                  <li>Specialist-recommended diagnostic procedures</li>
+                </ul>
+              </div>
+              <div class="detail-block">
+                <h4>The Real Value</h4>
+                <ul>
+                  <li>Early diagnosis dramatically improves treatment outcomes, especially for cancer and cardiac conditions</li>
+                  <li>Removes the financial barrier to getting answers quickly</li>
+                  <li>Often the first step before treatment is needed. Catching issues early saves cost and improves recovery</li>
+                  <li>Avoids months on a public waitlist for a referral that leads to more waiting</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="accordion-item">
+        <button class="accordion-trigger" onclick="toggle(this)">
+          <div class="trigger-left">
+            <svg class="trigger-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>
+            <div><div class="trigger-title">Private Medical Insurance</div><div class="trigger-sub">Comprehensive cover &middot; Private hospital &middot; Your choice of specialist</div></div>
+          </div>
+          <svg class="trigger-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="accordion-content">
+          <div class="accordion-body">
+            <p class="service-intro">Private Medical Insurance provides comprehensive cover for a wide range of medical procedures and hospital stays, giving you full access to private hospital care, your choice of specialist, and faster treatment timelines than the public system.</p>
+            <div class="detail-grid">
+              <div class="detail-block">
+                <h4>What Is Typically Covered</h4>
+                <ul>
+                  <li>Private hospital accommodation and surgical procedures</li>
+                  <li>Specialist consultations and follow-up care</li>
+                  <li>Anaesthetist and surgical assistant fees</li>
+                  <li>Diagnostic tests ordered by a specialist</li>
+                  <li>Prescription medicines related to treatment</li>
+                  <li>Rehabilitation following surgery or illness</li>
+                </ul>
+              </div>
+              <div class="detail-block">
+                <h4>Why Private Cover Makes Sense</h4>
+                <ul>
+                  <li>Choose your own specialist rather than being allocated one</li>
+                  <li>Avoid lengthy public waitlists for elective and non-urgent procedures</li>
+                  <li>Private hospital environments typically support a better recovery experience</li>
+                  <li>Can be structured around your budget with various excess options</li>
+                  <li>Protects your ACC and public health entitlements for genuine emergencies</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- BUSINESS -->
+<section class="category" id="business">
+  <div class="category-inner">
+    <div class="category-header">
+      <span class="cat-number">03</span>
+      <div>
+        <span class="cat-label">Business Insurance</span>
+        <h2 class="cat-title">Keep your business running, no matter what happens to you.</h2>
+        <p class="cat-desc">As a business owner, you are the engine. If something happens to you, everything you have built is at risk. I work with SME owners to structure cover that protects the business, its people, and its future, built to hold up when a claim needs to be made.</p>
+      </div>
+    </div>
+    <div class="accordion">
+
+      <div class="accordion-item">
+        <button class="accordion-trigger" onclick="toggle(this)">
+          <div class="trigger-left">
+            <svg class="trigger-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20 7H4a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2z"/><path d="M16 3H8a2 2 0 0 0-2 2v2h12V5a2 2 0 0 0-2-2z"/></svg>
+            <div><div class="trigger-title">Business Key Person Insurance</div><div class="trigger-sub">Protects against loss of a key individual &middot; Life &amp; Trauma options</div></div>
+          </div>
+          <svg class="trigger-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="accordion-content">
+          <div class="accordion-body">
+            <p class="service-intro">Key Person Insurance protects your business against the financial consequences of losing a crucial team member through serious illness, permanent disability, or death. It safeguards business continuity when the person most critical to your operations is unable to continue.</p>
+            <div class="detail-grid">
+              <div class="detail-block">
+                <h4>What It Covers</h4>
+                <ul>
+                  <li>Loss of revenue directly attributed to the key person</li>
+                  <li>Costs of recruiting and training a replacement</li>
+                  <li>Repayment of business loans personally guaranteed by the key person</li>
+                  <li>Cost of a temporary replacement or specialist consultant</li>
+                  <li>Maintaining business momentum during a transition period</li>
+                </ul>
+              </div>
+              <div class="detail-block">
+                <h4>Who Qualifies as a Key Person?</h4>
+                <ul>
+                  <li>The business owner or co-founder</li>
+                  <li>A top-performing salesperson whose relationships drive revenue</li>
+                  <li>A technical specialist whose skills are difficult to replace</li>
+                  <li>Any individual whose absence would materially impact business income or operations</li>
+                </ul>
+              </div>
+            </div>
+            <div class="callout"><p><strong>From Salesh's experience:</strong> I know how important it is to structure Key Person cover correctly. The sum insured, the trigger conditions, and how the policy is owned all affect whether a claim succeeds. I make sure your policy is built to pay out when it needs to.</p></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="accordion-item">
+        <button class="accordion-trigger" onclick="toggle(this)">
+          <div class="trigger-left">
+            <svg class="trigger-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
+            <div><div class="trigger-title">Business Income Continuity</div><div class="trigger-sub">Monthly payments &middot; Replaces business income &middot; Illness &amp; injury</div></div>
+          </div>
+          <svg class="trigger-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="accordion-content">
+          <div class="accordion-body">
+            <p class="service-intro">If you are a business owner, you are the engine room of your company. If illness or injury takes you out of action, the business does not just lose its leader, it loses its momentum. Business Income Continuity replaces the income your business generates while you are unable to work.</p>
+            <div class="detail-grid">
+              <div class="detail-block">
+                <h4>How It Works</h4>
+                <ul>
+                  <li>Provides a monthly benefit based on your share of business income</li>
+                  <li>Covers inability to work due to illness or injury</li>
+                  <li>Benefit period options typically range from 2 years to age 65</li>
+                  <li>Can be structured to complement personal Income Protection</li>
+                  <li>Payments continue while you are unable to perform your key business duties</li>
+                </ul>
+              </div>
+              <div class="detail-block">
+                <h4>Why Business Owners Need This Separately</h4>
+                <ul>
+                  <li>Personal Income Protection covers your salary. If your income comes through the business, the structure matters differently</li>
+                  <li>Ensures business obligations and distributions can continue without drawing on reserves</li>
+                  <li>Protects your business partners and staff from the financial impact of your absence</li>
+                  <li>Can be owned by the business as a potentially deductible expense in some structures</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="accordion-item">
+        <button class="accordion-trigger" onclick="toggle(this)">
+          <div class="trigger-left">
+            <svg class="trigger-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2L3 7v5c0 5.25 3.75 10.15 9 11.25C17.25 22.15 21 17.25 21 12V7l-9-5z"/><path d="M9 12l2 2 4-4"/></svg>
+            <div><div class="trigger-title">Business Overhead Expense Protection</div><div class="trigger-sub">Covers fixed costs &middot; Keeps the business open &middot; Rent, wages, loans</div></div>
+          </div>
+          <svg class="trigger-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="accordion-content">
+          <div class="accordion-body">
+            <p class="service-intro">Business Overhead Expense (BOE) Insurance ensures your business stays open and operational while you recover from illness or injury. While personal Income Protection covers your personal expenses, BOE covers the ongoing costs of running the business itself.</p>
+            <div class="detail-grid">
+              <div class="detail-block">
+                <h4>Typical Expenses Covered</h4>
+                <ul>
+                  <li>Office or premises rent and utilities</li>
+                  <li>Staff wages and salaries</li>
+                  <li>Business loan repayments</li>
+                  <li>Equipment leases and subscriptions</li>
+                  <li>Accountancy and professional service fees</li>
+                  <li>Business insurance premiums</li>
+                </ul>
+              </div>
+              <div class="detail-block">
+                <h4>Key Considerations</h4>
+                <ul>
+                  <li>Designed for sole traders, business owners, and partners in a firm</li>
+                  <li>Benefit period is typically 12 to 24 months, giving you time to recover or arrange a handover</li>
+                  <li>Works alongside personal Income Protection for full personal and business coverage</li>
+                  <li>Premiums are generally tax deductible as a business expense</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="accordion-item">
+        <button class="accordion-trigger" onclick="toggle(this)">
+          <div class="trigger-left">
+            <svg class="trigger-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg>
+            <div><div class="trigger-title">Shareholder Protection</div><div class="trigger-sub">Buy-sell cover &middot; Business continuity &middot; Ownership transition</div></div>
+          </div>
+          <svg class="trigger-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="accordion-content">
+          <div class="accordion-body">
+            <p class="service-intro">Shareholder Protection Insurance (also known as Buy-Sell Cover) provides the funding for remaining owners to purchase a departing shareholder's stake, ensuring a smooth and equitable business transition when a shareholder dies or suffers a critical illness.</p>
+            <div class="detail-grid">
+              <div class="detail-block">
+                <h4>What It Solves</h4>
+                <ul>
+                  <li>Without this cover, a deceased shareholder's stake passes to their estate, potentially to people with no interest in the business</li>
+                  <li>Surviving shareholders may not have liquid capital to buy out a departing partner</li>
+                  <li>Provides certainty for all shareholders about what happens in a worst-case scenario</li>
+                  <li>Typically structured alongside a buy-sell agreement to be legally enforceable</li>
+                </ul>
+              </div>
+              <div class="detail-block">
+                <h4>How It Works</h4>
+                <ul>
+                  <li>Each shareholder takes out a policy on the others, or the company takes policies on all shareholders</li>
+                  <li>On a trigger event (death, terminal illness, or critical illness), the payout funds the share purchase</li>
+                  <li>The departing shareholder's family receives fair value; the business retains full ownership within the existing team</li>
+                  <li>Can be structured to cover the full market value of each shareholder's stake</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="accordion-item">
+        <button class="accordion-trigger" onclick="toggle(this)">
+          <div class="trigger-left">
+            <svg class="trigger-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+            <div><div class="trigger-title">Business Debt Protection</div><div class="trigger-sub">Lump sum &middot; Clears business loans &middot; Protects your family</div></div>
+          </div>
+          <svg class="trigger-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="accordion-content">
+          <div class="accordion-body">
+            <p class="service-intro">Business Debt Protection delivers a targeted lump sum to clear business debts in defined circumstances, protecting your family from inheriting business liabilities and helping safeguard the future of the business itself.</p>
+            <div class="detail-grid">
+              <div class="detail-block">
+                <h4>What It Covers</h4>
+                <ul>
+                  <li>Business loans and overdrafts personally guaranteed by the owner</li>
+                  <li>Commercial mortgages on business premises</li>
+                  <li>Equipment finance and leases</li>
+                  <li>Investor loans or director's loans within the business</li>
+                </ul>
+              </div>
+              <div class="detail-block">
+                <h4>Why This Is Critical</h4>
+                <ul>
+                  <li>Many business owners personally guarantee business debt, meaning the bank can pursue family assets if the business cannot repay</li>
+                  <li>A lump sum at the point of death or critical illness prevents forced asset sales</li>
+                  <li>Allows the business to continue operating debt-free rather than being wound up</li>
+                  <li>Gives your family security that they will not face a burden you did not intend them to carry</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="accordion-item">
+        <button class="accordion-trigger" onclick="toggle(this)">
+          <div class="trigger-left">
+            <svg class="trigger-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+            <div><div class="trigger-title">ACC Cover Plus Extra</div><div class="trigger-sub">Self-employed &middot; Set your own compensation amount &middot; Greater certainty</div></div>
+          </div>
+          <svg class="trigger-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="accordion-content">
+          <div class="accordion-body">
+            <p class="service-intro">ACC Cover Plus Extra (CPX) is a flexible, optional ACC product designed for self-employed people. It gives you greater control and certainty over what you receive if an accident stops you from working, rather than relying on a percentage of fluctuating income.</p>
+            <div class="detail-grid">
+              <div class="detail-block">
+                <h4>How It Differs from Standard ACC</h4>
+                <ul>
+                  <li>Standard ACC for self-employed is based on previous income, which can result in lower payouts than expected</li>
+                  <li>CPX allows you to set a specific weekly compensation amount regardless of income fluctuation</li>
+                  <li>Provides certainty about what you will receive rather than a percentage of variable earnings</li>
+                  <li>Can reduce levies compared to standard ACC in many cases</li>
+                </ul>
+              </div>
+              <div class="detail-block">
+                <h4>Important Limitations to Know</h4>
+                <ul>
+                  <li>ACC, including CPX, only covers accidents, not illness</li>
+                  <li>A health diagnosis such as cancer, heart disease, or a mental health condition is not covered by ACC</li>
+                  <li>CPX should always be paired with Income Protection insurance for complete coverage</li>
+                  <li>I help self-employed clients structure CPX and Income Protection together to avoid gaps or over-insuring</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- TRADE -->
+<section class="category alt" id="trade">
+  <div class="category-inner">
+    <div class="category-header">
+      <span class="cat-number">04</span>
+      <div>
+        <span class="cat-label">Trade Insurance &amp; ACC</span>
+        <h2 class="cat-title">For those who work with their hands and their livelihoods.</h2>
+        <p class="cat-desc">Tradies, contractors, and self-employed workers face unique physical risks every day. ACC provides some protection for accidents, but it is rarely the complete answer. I help people in trade-based roles understand exactly what they are covered for and structure supplementary insurance to close the gaps.</p>
+      </div>
+    </div>
+    <div class="accordion">
+      <div class="accordion-item">
+        <button class="accordion-trigger" onclick="toggle(this)">
+          <div class="trigger-left">
+            <svg class="trigger-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
+            <div><div class="trigger-title">Trade Insurance &amp; ACC Advice</div><div class="trigger-sub">Accident cover &middot; ACC gap analysis &middot; Tailored for tradespeople</div></div>
+          </div>
+          <svg class="trigger-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="accordion-content">
+          <div class="accordion-body">
+            <p class="service-intro">Many tradespeople assume ACC has them fully covered. The reality is more nuanced, and understanding the gaps can make the difference between a manageable setback and a financial crisis. I provide a thorough review of your ACC entitlements and help you structure cover that genuinely protects your income and ability to keep working.</p>
+            <div class="detail-grid">
+              <div class="detail-block">
+                <h4>What ACC Covers (and Does Not)</h4>
+                <ul>
+                  <li><strong>Covered:</strong> Work-related and non-work accidents resulting in physical injury</li>
+                  <li><strong>Not covered:</strong> Illness, disease, or gradual onset conditions such as back degeneration or repetitive strain</li>
+                  <li><strong>Not covered:</strong> Mental health conditions not directly linked to a physical accident</li>
+                  <li><strong>Limited:</strong> ACC pays a maximum of 80% of your pre-injury income, and only for accidents</li>
+                  <li><strong>Gap risk:</strong> If your income has changed significantly, ACC may calculate payments based on outdated earnings</li>
+                </ul>
+              </div>
+              <div class="detail-block">
+                <h4>What I Recommend for Tradespeople</h4>
+                <ul>
+                  <li><strong>ACC Cover Plus Extra:</strong> Sets a guaranteed weekly compensation amount for accidents, providing certainty over variable income</li>
+                  <li><strong>Income Protection:</strong> Covers illness and injuries that ACC does not. Essential when physical capacity is everything</li>
+                  <li><strong>Trauma Cover:</strong> Lump sum for serious health conditions diagnosed outside of an accident context</li>
+                  <li><strong>Life Insurance:</strong> Ensures your family is protected if the worst happens on or off the job</li>
+                </ul>
+              </div>
+            </div>
+            <div class="callout"><p><strong>The key point:</strong> ACC is a starting point, not a complete solution. I work with tradespeople to build a package that genuinely covers the full range of risks, not just the ones ACC was designed for.</p></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CLAIMS REVIEW -->
+<section class="claims-section" id="claims-review">
+  <div class="claims-inner">
+    <span class="claims-tag">Exclusive Service</span>
+    <h2 class="claims-title">Had a claim declined?<br><em>Get a second opinion from someone who was making those decisions.</em></h2>
+    <p class="claims-intro">Most people accept a declined claim as final. It does not have to be. With 15 years of experience assessing and managing Life, Trauma, and Income Protection claims at a senior level, I know exactly how insurers make their decisions and where those decisions can be legitimately challenged.</p>
+    <div class="claims-grid">
+      <div class="claims-card">
+        <div class="claims-card-num">01</div>
+        <p class="claims-card-title">Independent Claim Review</p>
+        <p class="claims-card-desc">A thorough, objective review of your declined claim and the insurer's stated reasoning from someone who spent years on the other side of that process. I assess whether the decision was correctly made based on the policy wording and information provided.</p>
+      </div>
+      <div class="claims-card">
+        <div class="claims-card-num">02</div>
+        <p class="claims-card-title">Policy Wording Analysis</p>
+        <p class="claims-card-desc">A line-by-line review of how your policy wording applies to your specific circumstances, identifying any grounds for reconsideration, appeal, or escalation to the Insurance and Financial Services Ombudsman (IFSO).</p>
+      </div>
+      <div class="claims-card">
+        <div class="claims-card-num">03</div>
+        <p class="claims-card-title">Clear Advice on Next Steps</p>
+        <p class="claims-card-desc">An honest, plain-English summary of where you stand and what your realistic options are, whether that is an internal appeal, an IFSO complaint, or accepting the outcome. No obligation to proceed further.</p>
+      </div>
+      <div class="claims-card">
+        <div class="claims-card-num">04</div>
+        <p class="claims-card-title">Fixed Fee, Pay Per Service</p>
+        <p class="claims-card-desc">No ongoing commitment required. You pay for the review and receive a clear, actionable written report. Available to all individuals regardless of who their current adviser is.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta" id="enquire">
+  <div class="cta-inner">
+    <h2 class="cta-heading">Not sure what you need? Let's talk it through.</h2>
+    <p class="cta-text">Every situation is different. I do not believe in one-size-fits-all policies. Reach out and we will have a straightforward conversation about your life, your risks, and what cover actually makes sense for you.</p>
+    <div class="cta-actions">
+      <a href="enquire.html" class="btn-primary">Get in Touch</a>
+      <a href="about.html" class="btn-secondary">Learn About Salesh</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand-text"><div class="name">Tsuri</div><div class="sub">Financial Services</div></div>
+    <div class="footer-contact">
+      <a href="mailto:salesh@tsurifiancial.com">salesh@tsurifiancial.com</a>
+      <a href="tel:+6421234567">+64 21 234 567</a>
+      <a href="#">Auckland, New Zealand</a>
+    </div>
+    <div class="footer-tagline">Reliable. Personal. Rock Solid.</div>
+  </div>
+  <p class="footer-copy">&copy; 2025 Tsuri Financial Services &nbsp;&middot;&nbsp; Salesh Narayan, CA &nbsp;&middot;&nbsp; Licensed Financial Adviser</p>
+</footer>
+
+<script>
+  function toggle(btn) {
+    const content = btn.nextElementSibling;
+    const isOpen = content.classList.contains('open');
+    document.querySelectorAll('.accordion-content.open').forEach(c => c.classList.remove('open'));
+    document.querySelectorAll('.accordion-trigger.open').forEach(b => b.classList.remove('open'));
+    if (!isOpen) { content.classList.add('open'); btn.classList.add('open'); }
+  }
+  function jumpTo(id, btn) {
+    document.getElementById(id).scrollIntoView({ behavior: 'smooth', block: 'start' });
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+  }
+  const sections = ['personal','medical','business','trade','claims-review'];
+  const btns = document.querySelectorAll('.tab-btn');
+  window.addEventListener('scroll', () => {
+    let current = '';
+    sections.forEach(id => { const el = document.getElementById(id); if (el && window.scrollY >= el.offsetTop - 200) current = id; });
+    btns.forEach((b, i) => b.classList.toggle('active', sections[i] === current));
+  });
+</script>
+</body>
+</html>

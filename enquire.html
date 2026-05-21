@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Enquire — Tsuri Financial Services</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Raleway:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #1b2d45; --navy-deep: #0f1d2e; --navy-mid: #243650;
+    --gold: #c9a84c; --gold-light: #e8c97a;
+    --cream: #f7f4ef; --cream-dark: #ede9e1;
+    --white: #ffffff; --text-dark: #1b2d45; --text-mid: #4a5568;
+    --error: #b82c22;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'Raleway', sans-serif; background: var(--cream); color: var(--text-dark); overflow-x: hidden; }
+
+  /* NAV */
+  nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between; padding: 20px 60px; background: rgba(27,45,69,0.97); backdrop-filter: blur(8px); border-bottom: 1px solid rgba(201,168,76,0.2); }
+  .nav-logo { display: flex; align-items: center; text-decoration: none; }
+  .nav-brand { display: flex; flex-direction: column; line-height: 1; }
+  .nav-brand-name { font-family: 'Cormorant Garamond', serif; font-size: 1.3rem; font-weight: 600; letter-spacing: 0.2em; color: var(--white); text-transform: uppercase; }
+  .nav-brand-sub { font-size: 0.6rem; letter-spacing: 0.25em; color: var(--gold); text-transform: uppercase; margin-top: 3px; }
+  .nav-links { display: flex; gap: 40px; list-style: none; }
+  .nav-links a { font-size: 0.7rem; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(255,255,255,0.75); text-decoration: none; transition: color 0.3s; }
+  .nav-links a:hover, .nav-links a.active { color: var(--gold); }
+  .nav-cta { background: var(--gold) !important; border: 1px solid var(--gold); color: var(--navy-deep) !important; padding: 8px 22px; font-size: 0.65rem !important; letter-spacing: 0.18em; text-transform: uppercase; cursor: pointer; text-decoration: none; font-family: 'Raleway', sans-serif; font-weight: 600; }
+
+  /* PAGE HERO */
+  .page-hero { padding: 150px 60px 80px; background: var(--navy-deep); position: relative; overflow: hidden; }
+  .page-hero::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 2px; background: linear-gradient(to right, transparent, var(--gold), transparent); }
+  .page-hero-inner { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+  .page-hero-label { font-size: 0.62rem; letter-spacing: 0.35em; text-transform: uppercase; color: var(--gold); margin-bottom: 20px; display: block; }
+  .page-hero-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(2.4rem, 4vw, 3.6rem); font-weight: 300; color: var(--white); line-height: 1.1; margin-bottom: 20px; }
+  .page-hero-title em { font-style: italic; color: var(--gold-light); }
+  .page-hero-sub { font-size: 0.84rem; color: rgba(255,255,255,0.5); font-weight: 300; line-height: 1.9; }
+
+  /* Contact info panel */
+  .contact-panel { display: flex; flex-direction: column; gap: 2px; }
+  .contact-item { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.07); padding: 24px 28px; display: flex; align-items: center; gap: 18px; transition: background 0.3s; }
+  .contact-item:hover { background: rgba(255,255,255,0.07); }
+  .contact-icon { width: 28px; height: 28px; color: var(--gold); min-width: 28px; opacity: 0.8; }
+  .contact-detail { display: flex; flex-direction: column; }
+  .contact-label { font-size: 0.58rem; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(255,255,255,0.35); margin-bottom: 4px; }
+  .contact-value { font-size: 0.84rem; color: var(--white); font-weight: 300; }
+  .contact-value a { color: var(--white); text-decoration: none; transition: color 0.3s; }
+  .contact-value a:hover { color: var(--gold); }
+
+  /* FORM SECTION */
+  .form-section { padding: 90px 60px; }
+  .form-inner { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: 1fr 420px; gap: 80px; align-items: start; }
+
+  /* What to expect sidebar */
+  .expect-panel { position: sticky; top: 110px; }
+  .expect-label { font-size: 0.6rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--gold); margin-bottom: 14px; display: block; }
+  .expect-heading { font-family: 'Cormorant Garamond', serif; font-size: 1.7rem; font-weight: 400; color: var(--navy-deep); line-height: 1.25; margin-bottom: 28px; }
+  .expect-steps { display: flex; flex-direction: column; gap: 2px; }
+  .expect-step { background: var(--white); border: 1px solid rgba(27,45,69,0.07); padding: 22px 24px; display: flex; gap: 18px; align-items: flex-start; }
+  .step-num { font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; font-weight: 600; color: var(--gold); opacity: 0.5; line-height: 1; min-width: 28px; }
+  .step-title { font-size: 0.78rem; font-weight: 600; color: var(--navy-deep); letter-spacing: 0.05em; margin-bottom: 5px; }
+  .step-desc { font-size: 0.74rem; color: var(--text-mid); line-height: 1.7; font-weight: 300; }
+  .expect-note { margin-top: 24px; padding: 18px 20px; background: var(--cream-dark); border-left: 3px solid var(--gold); }
+  .expect-note p { font-size: 0.76rem; color: var(--text-mid); line-height: 1.75; font-weight: 300; }
+  .expect-note p strong { color: var(--navy); font-weight: 500; }
+
+  /* FORM */
+  .enquiry-form { display: flex; flex-direction: column; gap: 0; }
+
+  .form-section-title { font-family: 'Cormorant Garamond', serif; font-size: 1.25rem; font-weight: 600; color: var(--navy-deep); margin-bottom: 20px; padding-bottom: 12px; border-bottom: 1px solid rgba(27,45,69,0.1); display: flex; align-items: center; gap: 10px; }
+  .form-section-title::before { content: ''; display: inline-block; width: 20px; height: 2px; background: var(--gold); }
+
+  .form-block { margin-bottom: 36px; }
+
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .form-row.single { grid-template-columns: 1fr; }
+  .form-row.thirds { grid-template-columns: 1fr 1fr 1fr; }
+
+  .form-group { display: flex; flex-direction: column; gap: 8px; margin-bottom: 16px; }
+  .form-group:last-child { margin-bottom: 0; }
+
+  label { font-size: 0.65rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--navy); font-weight: 500; }
+  label .req { color: var(--gold); margin-left: 2px; }
+
+  input[type="text"], input[type="email"], input[type="tel"], select, textarea {
+    width: 100%; padding: 14px 16px;
+    font-family: 'Raleway', sans-serif; font-size: 0.84rem; font-weight: 300;
+    color: var(--text-dark); background: var(--white);
+    border: 1px solid rgba(27,45,69,0.15); outline: none;
+    transition: border-color 0.25s, box-shadow 0.25s;
+    -webkit-appearance: none; appearance: none;
+  }
+  input:focus, select:focus, textarea:focus { border-color: var(--gold); box-shadow: 0 0 0 3px rgba(201,168,76,0.1); }
+  input::placeholder, textarea::placeholder { color: rgba(27,45,69,0.3); }
+  select { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23c9a84c' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 16px center; padding-right: 40px; cursor: pointer; }
+  textarea { resize: vertical; min-height: 120px; line-height: 1.7; }
+
+  /* Checkbox group */
+  .checkbox-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 4px; }
+  .checkbox-label { display: flex; align-items: center; gap: 10px; cursor: pointer; padding: 12px 14px; background: var(--white); border: 1px solid rgba(27,45,69,0.1); transition: all 0.2s; font-size: 0.78rem; color: var(--text-mid); font-weight: 300; }
+  .checkbox-label:hover { border-color: var(--gold); background: rgba(201,168,76,0.04); }
+  .checkbox-label input[type="checkbox"] { display: none; }
+  .checkbox-box { width: 16px; height: 16px; min-width: 16px; border: 1px solid rgba(27,45,69,0.2); position: relative; transition: all 0.2s; }
+  .checkbox-label input:checked ~ .checkbox-box { background: var(--gold); border-color: var(--gold); }
+  .checkbox-label input:checked ~ .checkbox-box::after { content: ''; position: absolute; left: 4px; top: 1px; width: 5px; height: 9px; border: 2px solid white; border-top: none; border-left: none; transform: rotate(45deg); }
+  .checkbox-label input:checked ~ .checkbox-text { color: var(--navy-deep); font-weight: 400; }
+  .checkbox-text { font-size: 0.76rem; line-height: 1.3; }
+
+  /* Radio group */
+  .radio-group { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 4px; }
+  .radio-label { display: flex; align-items: center; gap: 10px; cursor: pointer; padding: 11px 18px; background: var(--white); border: 1px solid rgba(27,45,69,0.1); transition: all 0.2s; font-size: 0.76rem; color: var(--text-mid); font-weight: 300; }
+  .radio-label:hover { border-color: var(--gold); }
+  .radio-label input[type="radio"] { display: none; }
+  .radio-dot { width: 14px; height: 14px; min-width: 14px; border: 1px solid rgba(27,45,69,0.25); border-radius: 50%; position: relative; transition: all 0.2s; }
+  .radio-label input:checked ~ .radio-dot { border-color: var(--gold); }
+  .radio-label input:checked ~ .radio-dot::after { content: ''; position: absolute; inset: 3px; background: var(--gold); border-radius: 50%; }
+  .radio-label input:checked ~ .radio-text { color: var(--navy-deep); font-weight: 400; }
+
+  /* Submit */
+  .form-submit { margin-top: 36px; display: flex; align-items: center; gap: 24px; flex-wrap: wrap; }
+  .btn-submit { background: var(--gold); color: var(--navy-deep); padding: 16px 48px; font-size: 0.72rem; letter-spacing: 0.22em; text-transform: uppercase; border: none; cursor: pointer; font-family: 'Raleway', sans-serif; font-weight: 600; transition: all 0.3s; display: inline-flex; align-items: center; gap: 10px; }
+  .btn-submit:hover { background: var(--gold-light); transform: translateY(-2px); }
+  .btn-submit svg { width: 16px; height: 16px; }
+  .submit-note { font-size: 0.68rem; color: var(--text-mid); font-weight: 300; line-height: 1.6; }
+
+  /* Success state */
+  .success-message { display: none; background: var(--navy-deep); padding: 60px 50px; text-align: center; }
+  .success-message.visible { display: block; }
+  .success-icon { width: 56px; height: 56px; color: var(--gold); margin: 0 auto 24px; }
+  .success-title { font-family: 'Cormorant Garamond', serif; font-size: 2rem; font-weight: 300; color: var(--white); margin-bottom: 14px; }
+  .success-sub { font-size: 0.82rem; color: rgba(255,255,255,0.5); line-height: 1.8; max-width: 420px; margin: 0 auto; }
+
+  /* FOOTER */
+  footer { background: var(--navy-deep); padding: 50px 60px; border-top: 1px solid rgba(201,168,76,0.15); }
+  .footer-inner { max-width: 1200px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 30px; }
+  .footer-brand-text .name { font-family: 'Cormorant Garamond', serif; font-size: 1rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--white); font-weight: 600; }
+  .footer-brand-text .sub { font-size: 0.58rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--gold); margin-top: 2px; }
+  .footer-contact a { display: block; font-size: 0.72rem; color: rgba(255,255,255,0.5); text-decoration: none; letter-spacing: 0.05em; transition: color 0.3s; line-height: 2; text-align: center; }
+  .footer-contact a:hover { color: var(--gold); }
+  .footer-tagline { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 0.95rem; color: rgba(255,255,255,0.3); }
+  .footer-copy { width: 100%; text-align: center; font-size: 0.6rem; color: rgba(255,255,255,0.2); letter-spacing: 0.1em; text-transform: uppercase; margin-top: 30px; padding-top: 30px; border-top: 1px solid rgba(255,255,255,0.05); }
+
+  @media (max-width: 960px) {
+    nav { padding: 18px 24px; }
+    .nav-links { display: none; }
+    .page-hero { padding: 120px 24px 60px; }
+    .page-hero-inner { grid-template-columns: 1fr; gap: 40px; }
+    .form-section { padding: 60px 24px; }
+    .form-inner { grid-template-columns: 1fr; gap: 50px; }
+    .expect-panel { position: static; }
+    .form-row { grid-template-columns: 1fr; }
+    .form-row.thirds { grid-template-columns: 1fr; }
+    .checkbox-grid { grid-template-columns: 1fr; }
+    footer { padding: 40px 24px; }
+    .footer-inner { flex-direction: column; align-items: flex-start; }
+    .footer-contact a { text-align: left; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="index.html" class="nav-logo">
+    <div class="nav-brand">
+      <span class="nav-brand-name">Tsuri</span>
+      <span class="nav-brand-sub">Financial Services</span>
+    </div>
+  </a>
+  <ul class="nav-links">
+    <li><a href="about.html">About</a></li>
+    <li><a href="services.html">Services</a></li>
+    <li><a href="enquire.html">Claims</a></li>
+    <li><a href="enquire.html" class="nav-cta active">Get in Touch</a></li>
+  </ul>
+</nav>
+
+<!-- PAGE HERO -->
+<section class="page-hero">
+  <div class="page-hero-inner">
+    <div>
+      <span class="page-hero-label">Get in Touch</span>
+      <h1 class="page-hero-title">Let's have an <em>honest conversation</em> about your cover.</h1>
+      <p class="page-hero-sub">No jargon, no pressure. Just a straightforward discussion about where you are, what you need, and what the right cover looks like for your situation. Fill in the form and I will be in touch within one business day.</p>
+    </div>
+
+    <div class="contact-panel">
+      <div class="contact-item">
+        <svg class="contact-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/>
+        </svg>
+        <div class="contact-detail">
+          <span class="contact-label">Email</span>
+          <span class="contact-value"><a href="mailto:salesh@tsurifiancial.com">salesh@tsurifiancial.com</a></span>
+        </div>
+      </div>
+      <div class="contact-item">
+        <svg class="contact-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 13a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 2.18h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 9.91a16 16 0 0 0 6.18 6.18l1.09-1.09a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+        </svg>
+        <div class="contact-detail">
+          <span class="contact-label">Phone</span>
+          <span class="contact-value"><a href="tel:+6421234567">+64 21 234 567</a></span>
+        </div>
+      </div>
+      <div class="contact-item">
+        <svg class="contact-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/>
+        </svg>
+        <div class="contact-detail">
+          <span class="contact-label">Location</span>
+          <span class="contact-value">Auckland, New Zealand</span>
+        </div>
+      </div>
+      <div class="contact-item">
+        <svg class="contact-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
+        </svg>
+        <div class="contact-detail">
+          <span class="contact-label">Response Time</span>
+          <span class="contact-value">Within 1 business day</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FORM SECTION -->
+<section class="form-section">
+  <div class="form-inner">
+
+    <!-- FORM -->
+    <div>
+      <form class="enquiry-form" id="enquiryForm" onsubmit="handleSubmit(event)" novalidate>
+
+        <!-- Personal Details -->
+        <div class="form-block">
+          <p class="form-section-title">Your Details</p>
+          <div class="form-row">
+            <div class="form-group">
+              <label>First Name <span class="req">*</span></label>
+              <input type="text" name="firstName" placeholder="e.g. Sarah" required>
+            </div>
+            <div class="form-group">
+              <label>Last Name <span class="req">*</span></label>
+              <input type="text" name="lastName" placeholder="e.g. Thompson" required>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>Email Address <span class="req">*</span></label>
+              <input type="email" name="email" placeholder="you@example.com" required>
+            </div>
+            <div class="form-group">
+              <label>Phone Number</label>
+              <input type="tel" name="phone" placeholder="+64 21 000 0000">
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>City / Region <span class="req">*</span></label>
+              <select name="city" required>
+                <option value="" disabled selected>Select your region</option>
+                <option>Auckland</option>
+                <option>Wellington</option>
+                <option>Canterbury</option>
+                <option>Waikato</option>
+                <option>Bay of Plenty</option>
+                <option>Otago</option>
+                <option>Manawatu-Whanganui</option>
+                <option>Hawke's Bay</option>
+                <option>Northland</option>
+                <option>Other</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Age Range</label>
+              <select name="ageRange">
+                <option value="" disabled selected>Select your age range</option>
+                <option>Under 25</option>
+                <option>25 to 34</option>
+                <option>35 to 44</option>
+                <option>45 to 54</option>
+                <option>55 to 64</option>
+                <option>65 or over</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <!-- Enquiry Type -->
+        <div class="form-block">
+          <p class="form-section-title">What Are You Looking For?</p>
+          <div class="form-group">
+            <label>I am enquiring as <span class="req">*</span></label>
+            <div class="radio-group">
+              <label class="radio-label">
+                <input type="radio" name="clientType" value="personal" required>
+                <span class="radio-dot"></span>
+                <span class="radio-text">An individual or family</span>
+              </label>
+              <label class="radio-label">
+                <input type="radio" name="clientType" value="business">
+                <span class="radio-dot"></span>
+                <span class="radio-text">A business owner</span>
+              </label>
+              <label class="radio-label">
+                <input type="radio" name="clientType" value="both">
+                <span class="radio-dot"></span>
+                <span class="radio-text">Both personal and business</span>
+              </label>
+              <label class="radio-label">
+                <input type="radio" name="clientType" value="claims">
+                <span class="radio-dot"></span>
+                <span class="radio-text">Claims review service</span>
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <!-- Services of Interest -->
+        <div class="form-block">
+          <p class="form-section-title">Services of Interest</p>
+          <div class="form-group">
+            <label>Which cover are you interested in? <span style="font-size:0.58rem; color:var(--text-mid); text-transform:none; letter-spacing:0;">(Select all that apply)</span></label>
+            <div class="checkbox-grid">
+              <label class="checkbox-label">
+                <input type="checkbox" name="services" value="life">
+                <span class="checkbox-box"></span>
+                <span class="checkbox-text">Life &amp; Terminal Illness</span>
+              </label>
+              <label class="checkbox-label">
+                <input type="checkbox" name="services" value="trauma">
+                <span class="checkbox-box"></span>
+                <span class="checkbox-text">Trauma &amp; Critical Illness</span>
+              </label>
+              <label class="checkbox-label">
+                <input type="checkbox" name="services" value="income">
+                <span class="checkbox-box"></span>
+                <span class="checkbox-text">Income Protection</span>
+              </label>
+              <label class="checkbox-label">
+                <input type="checkbox" name="services" value="mortgage">
+                <span class="checkbox-box"></span>
+                <span class="checkbox-text">Mortgage &amp; Rent Protection</span>
+              </label>
+              <label class="checkbox-label">
+                <input type="checkbox" name="services" value="health">
+                <span class="checkbox-box"></span>
+                <span class="checkbox-text">Medical Insurance</span>
+              </label>
+              <label class="checkbox-label">
+                <input type="checkbox" name="services" value="disability">
+                <span class="checkbox-box"></span>
+                <span class="checkbox-text">Disability Benefit (TPD)</span>
+              </label>
+              <label class="checkbox-label">
+                <input type="checkbox" name="services" value="business">
+                <span class="checkbox-box"></span>
+                <span class="checkbox-text">Business Insurance</span>
+              </label>
+              <label class="checkbox-label">
+                <input type="checkbox" name="services" value="acc">
+                <span class="checkbox-box"></span>
+                <span class="checkbox-text">ACC Cover Plus Extra</span>
+              </label>
+              <label class="checkbox-label">
+                <input type="checkbox" name="services" value="trade">
+                <span class="checkbox-box"></span>
+                <span class="checkbox-text">Trade &amp; ACC Advice</span>
+              </label>
+              <label class="checkbox-label">
+                <input type="checkbox" name="services" value="claimsreview">
+                <span class="checkbox-box"></span>
+                <span class="checkbox-text">Claims Review Service</span>
+              </label>
+              <label class="checkbox-label">
+                <input type="checkbox" name="services" value="notsure">
+                <span class="checkbox-box"></span>
+                <span class="checkbox-text">Not sure — need guidance</span>
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <!-- Current Situation -->
+        <div class="form-block">
+          <p class="form-section-title">Your Current Situation</p>
+          <div class="form-row">
+            <div class="form-group">
+              <label>Do you currently have insurance?</label>
+              <select name="hasInsurance">
+                <option value="" disabled selected>Please select</option>
+                <option>Yes, I have existing cover</option>
+                <option>No, I am starting fresh</option>
+                <option>I had cover but it has lapsed</option>
+                <option>I am not sure</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>How did you hear about Tsuri?</label>
+              <select name="referral">
+                <option value="" disabled selected>Please select</option>
+                <option>Google search</option>
+                <option>Referred by a friend or family</option>
+                <option>LinkedIn</option>
+                <option>Social media</option>
+                <option>Premier Life / Referral partner</option>
+                <option>Other</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>Preferred contact method</label>
+              <div class="radio-group">
+                <label class="radio-label">
+                  <input type="radio" name="contactMethod" value="email">
+                  <span class="radio-dot"></span>
+                  <span class="radio-text">Email</span>
+                </label>
+                <label class="radio-label">
+                  <input type="radio" name="contactMethod" value="phone">
+                  <span class="radio-dot"></span>
+                  <span class="radio-text">Phone call</span>
+                </label>
+                <label class="radio-label">
+                  <input type="radio" name="contactMethod" value="either">
+                  <span class="radio-dot"></span>
+                  <span class="radio-text">Either is fine</span>
+                </label>
+              </div>
+            </div>
+            <div class="form-group">
+              <label>Best time to reach you</label>
+              <select name="bestTime">
+                <option value="" disabled selected>Please select</option>
+                <option>Morning (8am to 12pm)</option>
+                <option>Afternoon (12pm to 5pm)</option>
+                <option>Evening (after 5pm)</option>
+                <option>Any time</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <!-- Message -->
+        <div class="form-block">
+          <p class="form-section-title">Anything Else?</p>
+          <div class="form-group form-row single">
+            <label>Tell me a little about your situation</label>
+            <textarea name="message" placeholder="E.g. I recently bought a house and have two young kids. I have some cover through work but want to review whether it is enough. No rush, just looking to understand my options."></textarea>
+          </div>
+        </div>
+
+        <div class="form-submit">
+          <button type="submit" class="btn-submit">
+            Send Enquiry
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </button>
+          <p class="submit-note">Your information is kept strictly private and will only be used to respond to your enquiry. No spam, ever.</p>
+        </div>
+
+      </form>
+
+      <!-- Success message -->
+      <div class="success-message" id="successMsg">
+        <svg class="success-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/>
+        </svg>
+        <h2 class="success-title">Thank you for reaching out.</h2>
+        <p class="success-sub">Your enquiry has been received. Salesh will be in touch within one business day to have a conversation at your pace, with no pressure.</p>
+      </div>
+    </div>
+
+    <!-- SIDEBAR -->
+    <div class="expect-panel">
+      <span class="expect-label">What Happens Next</span>
+      <h2 class="expect-heading">A simple process from first contact to confident cover.</h2>
+      <div class="expect-steps">
+        <div class="expect-step">
+          <span class="step-num">1</span>
+          <div>
+            <p class="step-title">Salesh reviews your enquiry</p>
+            <p class="step-desc">Within one business day, Salesh personally reviews your details and reaches out to arrange a no-obligation conversation.</p>
+          </div>
+        </div>
+        <div class="expect-step">
+          <span class="step-num">2</span>
+          <div>
+            <p class="step-title">Initial conversation</p>
+            <p class="step-desc">A relaxed, no-pressure call or meeting to understand your situation, your goals, and any cover you already have in place.</p>
+          </div>
+        </div>
+        <div class="expect-step">
+          <span class="step-num">3</span>
+          <div>
+            <p class="step-title">Tailored recommendations</p>
+            <p class="step-desc">Salesh prepares a personalised recommendation based on your specific needs, with clear explanations of what each policy covers and why.</p>
+          </div>
+        </div>
+        <div class="expect-step">
+          <span class="step-num">4</span>
+          <div>
+            <p class="step-title">You decide, at your pace</p>
+            <p class="step-desc">No rush and no hard sell. You review the options, ask as many questions as you need, and move forward when you are ready.</p>
+          </div>
+        </div>
+        <div class="expect-step">
+          <span class="step-num">5</span>
+          <div>
+            <p class="step-title">Ongoing support</p>
+            <p class="step-desc">Unlike most advisers, Salesh stays with you after the policy is in place, including being there to guide you through a claim if the time ever comes.</p>
+          </div>
+        </div>
+      </div>
+      <div class="expect-note">
+        <p><strong>Already had a claim declined?</strong> Salesh offers a standalone claims review service for any individual, regardless of who their current adviser is. Mention this in your message above.</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand-text">
+      <div class="name">Tsuri</div>
+      <div class="sub">Financial Services</div>
+    </div>
+    <div class="footer-contact">
+      <a href="mailto:salesh@tsurifiancial.com">salesh@tsurifiancial.com</a>
+      <a href="tel:+6421234567">+64 21 234 567</a>
+      <a href="#">Auckland, New Zealand</a>
+    </div>
+    <div class="footer-tagline">Reliable. Personal. Rock Solid.</div>
+  </div>
+  <p class="footer-copy">&copy; 2025 Tsuri Financial Services &nbsp;&middot;&nbsp; Salesh Narayan, CA &nbsp;&middot;&nbsp; Licensed Financial Adviser</p>
+</footer>
+
+<script>
+  function handleSubmit(e) {
+    e.preventDefault();
+    const form = document.getElementById('enquiryForm');
+    const firstName = form.querySelector('[name="firstName"]').value.trim();
+    const email = form.querySelector('[name="email"]').value.trim();
+    const city = form.querySelector('[name="city"]').value;
+    const clientType = form.querySelector('[name="clientType"]:checked');
+
+    // Basic validation
+    let valid = true;
+    [form.querySelector('[name="firstName"]'), form.querySelector('[name="email"]'), form.querySelector('[name="city"]')].forEach(el => {
+      if (!el.value.trim()) { el.style.borderColor = 'var(--error)'; valid = false; }
+      else { el.style.borderColor = ''; }
+    });
+    if (!clientType) { valid = false; }
+    if (!valid) return;
+
+    // Show success
+    form.style.display = 'none';
+    document.getElementById('successMsg').classList.add('visible');
+    window.scrollTo({ top: document.getElementById('successMsg').offsetTop - 100, behavior: 'smooth' });
+  }
+
+  // Clear error border on input
+  document.querySelectorAll('input, select').forEach(el => {
+    el.addEventListener('input', () => el.style.borderColor = '');
+  });
+</script>
+</body>
+</html>
